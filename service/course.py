@@ -189,7 +189,8 @@ class ClassService:
                             classId=course.id,
                             rollCallId=roll_call.id,
                             checkAt=datetime.timestamp(datetime.now(pytz.timezone("Asia/Ho_Chi_Minh"))),
-                            __expireAt=datetime.fromtimestamp(course.expireAt, tz=pytz.timezone("Asia/Ho_Chi_Minh")))
+                            __expireAt=datetime.fromtimestamp(course.expireAt,
+                                                              tz=pytz.timezone("Asia/Ho_Chi_Minh")) + timedelta(30))
         try:
             self.mongo[self.checkin_user].insert(checkin_user)
             return JSONResponse(status_code=200, content=response)
