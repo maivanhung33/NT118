@@ -266,8 +266,10 @@ class UserService:
             last_message = list(self.mongo[self.message].find({'conversationId': con['id']}, {'_id': 0})
                                 .sort('sendAt', -1).limit(1))[0]
             response['conversations'].append(dict(conversationId=con['id'],
-                                                  partnerUuid=last_message['receiverUuid'],
-                                                  partnerName=last_message['receiverName'],
+                                                  partnerUuid=con['senderUuid']
+                                                  if user_info.uuid != con['senderUuid'] else con['receiverUuid'],
+                                                  partnerName=con['senderName']
+                                                  if user_info.uuid != con['senderUuid'] else con['receiverName'],
                                                   lastActive=last_message['sendAt'],
                                                   last_message=last_message['content'],
                                                   isSeenLastMessage=last_message['isSeen']
