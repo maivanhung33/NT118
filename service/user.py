@@ -229,15 +229,15 @@ class UserService:
                                 receiverUuid=receiver['uuid'],
                                 receiverName=receiver['name'],
                                 totalMessage=0,
-                                createdAt=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp(),
-                                lastActive=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp())
+                                createdAt=int(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp()),
+                                lastActive=int(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp()))
             self.mongo[self.conversation].insert(conversation)
         message = dict(conversationId=conversation['id'],
                        senderUuid=user_info.uuid,
                        receiverUuid=receiver['uuid'],
                        receiverName=receiver['name'],
                        content=data.content,
-                       sendAt=datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp(),
+                       sendAt=int(datetime.now(pytz.timezone('Asia/Ho_Chi_Minh')).timestamp()),
                        isSeen=False)
         self.mongo[self.message].insert(message)
         self.mongo[self.conversation].update_one({'id': conversation['id']},
